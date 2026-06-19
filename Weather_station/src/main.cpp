@@ -1,13 +1,16 @@
 #include <Arduino.h>
+ #include "esp_log.h"
 
-extern "C" { 
 #include <sound/sound_module.h>
-}
-
+// #include <weather/weather_module.h>
 
 void setup() {
-  // put your setup code here, to run once:
-  sound_module_init(5);
+
+  Serial.begin(9600);
+  SoundModule sound_module(2);
+  sound_module.start_sound_task();
+
+  // weather_module_init(4);
 }
 
 void loop() {
