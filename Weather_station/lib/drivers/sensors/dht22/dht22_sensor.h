@@ -1,27 +1,13 @@
 #pragma once
-
 #include <stdint.h>
-#include <stdbool.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+class DHT22Sensor {
+    private:
+        uint8_t gpio_pin;
 
-typedef struct {
-    uint8_t gpio_pin;
-} dht22_sensor_t;
+    public:
+        void DHT22Init();
+        float ReadTemperature();
+        float ReadHumidity();
+};
 
-typedef void *DHT22_Handle;
-
-DHT22_Handle dht_create(uint8_t gpio_pin, unsigned char type);
-void dht_begin(DHT22_Handle handle);
-
-void dht22_sensor_init(uint8_t gpio_pin);
-float get_temperature();
-float get_humidity   (); 
-
-void dht_destroy(DHT22_Handle handle);
-
-#ifdef __cplusplus
-}
-#endif

@@ -7,7 +7,7 @@ class BuzzerDriver {
         uint8_t gpio_pin;
 
     public:
-        explicit BuzzerDriver(uint8_t gpio_pin);
+        explicit BuzzerDriver();
         void BuzzerInit();
         void BuzzerOn  ();
         void BuzzerOff ();
