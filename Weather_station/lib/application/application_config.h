@@ -12,3 +12,8 @@
 // DHT22 Sensor Configuration
 #define DHTPIN 4
 #define DHTTYPE DHT22
+
+// Buzzer Configuration
+#define BUZZER_PIN 5
+#define TEMPERATURE_THRESHOLD 25.0
+#define MAX_BEEPS 5

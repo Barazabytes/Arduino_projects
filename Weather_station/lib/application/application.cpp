@@ -3,10 +3,12 @@
 #include "application_config.h"
 #include <WiFi/wifi_service.h>
 #include "application.h"
+#include <actuators/buzzer/buzzer_driver.h>
 
 WiFiService wifiService;
 DHT22Sensor dht22;
 MQTTService mqttService;
+BuzzerDriver buzzer;
 
 
 void Application::setup() {
@@ -18,6 +20,9 @@ void Application::setup() {
 
     // Initialize MQTT Service
     mqttService.MQTTConnect();
+
+    // Initialize Buzzer
+    buzzer.BuzzerInit();
 }
 
 void Application::run() {
@@ -32,10 +37,6 @@ void Application::run() {
             Serial.println("Failed to read from DHT sensor!");
             continue;
         }
-
-        // Prepare payload
-        // char payload[100];
-        // snprintf(payload, sizeof(payload), "{\"temperature\": %.2f, \"humidity\": %.2f}", temperature, humidity);
         
         // Construct a JSON payload string
         // Format: {"temperature": 23.50, "humidity": 60.10}
@@ -47,7 +48,17 @@ void Application::run() {
         // Publish data to MQTT
         mqttService.MQTTPublish(MQTT_TOPIC, payload.c_str());
 
-        // Wait for 5 seconds before next reading
+        // Make a beep sound if temperature exceeds threshold
+        if (temperature > TEMPERATURE_THRESHOLD) {
+            for (int i = 0; i < MAX_BEEPS; i++) {
+                buzzer.BuzzerOn();
+                delay(200);
+                buzzer.BuzzerOff();
+                delay(200);
+            }
+        }
+
+        // Wait for 2 seconds before next reading
         delay(2000);
     }
 }
