@@ -1,7 +1,7 @@
 #pragma once
 
 class Application {
-public:
+public:w
     void setup();
     void run();
 };
