@@ -1,0 +1,6 @@
+#pragma once
+
+#define LED_PIN 25
+#define POTENTIOMETER_PIN 26
+#define POT_MAX_VALUE 4095
+#define LED_MAX_BRIGHTNESS 255
